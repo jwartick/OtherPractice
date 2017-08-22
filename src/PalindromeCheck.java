@@ -1,16 +1,18 @@
-/* Check whether or not string is a palindrome
-planning:
----------
-for(loop)
-array[i] = string.charAt(i)
-
-boolean isPalindrome = true;
-for(array.len/2)
-if (!(array[i]=array[len-i])
-isPalindrome = false;
-break;
-
- */
+/* 
+* http://javarevisited.blogspot.com/2011/06/top-programming-interview-questions.html
+* Check whether or not string is a palindrome
+* planning:
+* ---------
+* for(loop)
+* array[i] = string.charAt(i)
+* 
+* boolean isPalindrome = true;
+* for(array.len/2)
+* if (!(array[i]=array[len-i])
+* isPalindrome = false;
+* break;
+* 
+*/
 
 public class PalindromeCheck{
     public static void main(String[] args) 
