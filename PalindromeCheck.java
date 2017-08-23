@@ -41,7 +41,6 @@ public class PalindromeCheck{
                 }
             }
             System.out.println(each + " is a palindrome: " + isPalindrome + "!");
-
         }
     }
 }
