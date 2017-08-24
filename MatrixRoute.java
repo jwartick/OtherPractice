@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /*
 http://www.techiedelight.com/print-possible-solutions-n-queens-problem/
 The N queens puzzle is the problem of placing N chess queens on an N × N chessboard so that no two queens threaten each other. Thus, a solution requires that no two queens share the same row, column, or diagonal.
@@ -25,12 +27,14 @@ public class MatrixRoute
         int[][] board = new int[N][N]; //Default {0}
         int queens_on_board;
         int row, col; //Current row and column
+        Stack<Integer> save = new Stack<>();
         
         ChessBoard()
         {
             queens_on_board = 0;
             row = 0;
             col = 0;
+            save.push(0);
         }
         
         boolean isSafe()
@@ -99,17 +103,35 @@ public class MatrixRoute
         
         void placeQueen()
         {
-            if(isSafe())
+            if(col>3)
             {
-                board[row][col] = 1;
-                queens_on_board++;
-                row++;
+                row--;
+                queens_on_board--;
+                if(save.isEmpty())
+                {
+                    save.push(0);
+                }
+                if(row==-1)
+                {
+                    row=0;
+                }
+                board[row][save.peek()]=0;
+                col = save.pop() + 1;
             }
-            else
+            else if(!isSafe())
             {
                 col++;
                 placeQueen();
             }
+            else
+            {
+                board[row][col] = 1;
+                queens_on_board++;
+                row++;
+                save.push(col);
+                col = 0;
+            }
+
         }
         
         void printBoard()
