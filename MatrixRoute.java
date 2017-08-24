@@ -20,7 +20,7 @@ e.g. 4x4
  */
 public class MatrixRoute
 {
-    public static final int N = 4;
+    public static final int N = 8;
     
     public static class ChessBoard
     {
@@ -40,70 +40,54 @@ public class MatrixRoute
         boolean isSafe()
         {
             boolean flag = true;
-            //Check below
-            for(int i=row; i<N; i++)
+            for(int i = 0; i<N;i++)
             {
-                if(board[col][i]==1)
+                //Check column
+                if(board[i][col]==1)
+                {
+                    flag = false;
+                }
+                //Check row
+                if(board[row][i]==1)
                 {
                     flag = false;
                 }
             }
-            //Check above
-            for(int i=row; i>-1; i--)
+            //Check diagonal up
+            for(int i=0; row-i>-1; i++)
             {
-                if(board[col][i]==1)
+                //Diag up right
+                if(col+i<N && board[row-i][col+i]==1)
+                {
+                    flag = false;
+                }
+                //Diag up left
+                if(col-i>-1 && board[row-i][col-i]==1)
                 {
                     flag = false;
                 }
             }
-            //Check to the right
-            int diag = 0;
-            for(int i = col; i<N; i++)
+            //Check diag down
+            for(int i=0; row+i<N; i++)
             {
-                //Row || diag up || diag down
-                if(board[i][row]==1)
+                //Diag down right
+                if(col+i<N && board[row+i][col+i]==1)
                 {
                     flag = false;
                 }
-                //Diag up
-                if(row-diag>-1 && board[i][row-diag]==1)
+                //Diag down left
+                if(col-i>-1 && board[row+i][col-i]==1)
                 {
                     flag = false;
                 }
-                //Diag down
-                if(row+diag<N && board[i][row+diag]==1)
-                {
-                    flag = false;
-                }
-                diag++;
+
             }
-            //Check to the left
-            diag = 1;
-            for(int i=col-1; i>-1; i--)
-            {
-                if(board[i][row]==1)
-                {
-                    flag = false;
-                }
-                //Diag up
-                if(row-diag>-1 && board[i][row-diag]==1)
-                {
-                    flag = false;
-                }
-                //Diag down
-                if(row+diag<N && board[i][row+diag]==1)
-                {
-                    flag = false;
-                }
-                diag++;
-            }
-            
             return flag;
         }
         
         void placeQueen()
         {
-            if(col>3)
+            if(col>N-1)
             {
                 row--;
                 queens_on_board--;
@@ -152,10 +136,10 @@ public class MatrixRoute
     public static void main(String[] args)
     {
         ChessBoard currentGame = new ChessBoard();
-        
+        System.out.println("...calculating...");
        while(currentGame.queens_on_board < N)
         {
-            currentGame.printBoard();
+            //currentGame.printBoard();
             currentGame.placeQueen();
 
         }
